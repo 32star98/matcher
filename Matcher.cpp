@@ -75,9 +75,11 @@ bool Matcher::check()					//校验条件：转义字符使用，括号匹配，行尾匹配符
 {
 	bool answer = true;
 	char* ins = new char(length);
-	strcp(ins, ans, length);
-
 	int i;
+
+	strcp(ins, ans, length);			//代号实体化
+	for (i = 0;i < length;i++) ins[i] == -1 ? -1 : types[i];
+
 	//转义字符检查
 	for (i = 0;i < length;i++) {
 		if (ins[i] == 15) {
@@ -178,23 +180,20 @@ int Matcher::breakts(const char * tar, int length, int pointer, int state)
 		return -1;										//末尾匹配失败
 	}
 	else if (state == 3) {								//只匹配"n,"或者"a,b"(规定前一个逻辑的次数)
-		if (tar[pointer + 1] != ',') {
-			return -1;
-		}
+		if (tar[pointer] == '^') pointer++;				//“非”逻辑检查
+		if (tar[pointer] != -1) return -1;				//非“非”首字符检查
+		bool lock = false;
+		for (;pointer < length;pointer++) {				//一般查询
 
-		if (tar[pointer] != -1) {
-			return -1;
+			if (tar[pointer] == ',') {
+				lock = true;
+			}
+			else if (tar[pointer] == '}') {
+				return lock ? -1 : pointer;
+			}
+			else if (tar[pointer] > 0) return -1;
 		}
-
-		if (tar[pointer + 2] == ']') {
-			return pointer + 2;
-		}
-		else if (tar[pointer + 3] == ']') {
-			return pointer + 3;
-		}
-		else {
-			return -1;
-		}
+		return -1;										//末尾匹配失败
 	}
 	else
 	return false;
