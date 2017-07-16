@@ -5,7 +5,7 @@
 
 int main()
 {
-	new Matcher("h..lo");
+	Matcher t;
 	system("pause");
     return 0;
 }
