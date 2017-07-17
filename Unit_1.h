@@ -1,6 +1,6 @@
 #pragma once
-#include "Unit.h"
 //完全匹配类型，内含一个字符（串）
+class Unit;
 class Unit_1
 {
 public:

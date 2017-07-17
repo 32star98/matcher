@@ -3,6 +3,26 @@
 
 
 
+bool Unit::test()
+{
+	switch (kind) {
+	case 0:
+	case 1:
+		return u1->test();
+		break;
+	case 2:
+		return u2->test();
+		break;
+	case 3:
+		return u3->test();
+		break;
+	default:
+		printf("在分类时出现错误，\n错误位点unit.cpp");
+
+	}
+	return false;
+}
+
 Unit::Unit(int kind, int point, const char * sou)
 {
 	this->kind = kind;
@@ -33,18 +53,12 @@ void Unit::switcher()
 	case 0:
 	case 1:
 		u1 = new Unit_1(this);
-		init = u1->init;
-		test = u1->test;
 		break;
 	case 2:
 		u2 = new Unit_2(this);
-		init = u2->init;
-		test = u2->test;
 		break;
 	case 3:
 		u3 = new Unit_3(this);
-		init = u3->init;
-		test = u3->test;
 		break;
 	default:
 		printf("在分类时出现错误，\n错误位点unit.cpp");

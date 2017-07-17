@@ -5,7 +5,6 @@
 
 int main()
 {
-	Matcher t;
 	system("pause");
     return 0;
 }

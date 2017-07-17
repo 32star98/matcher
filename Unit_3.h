@@ -1,7 +1,7 @@
 #pragma once
-#include "Unit.h"
 //重复度，上下限
 //这个或许时多余的
+class Unit;
 class Unit_3
 {
 public:
