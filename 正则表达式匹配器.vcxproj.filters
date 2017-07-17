@@ -27,6 +27,21 @@
     <ClInclude Include="Matcher.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Flow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit_1.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit_2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit_3.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -36,6 +51,21 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Matcher.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Flow.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit_1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit_2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit_3.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
