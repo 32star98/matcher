@@ -1,6 +1,6 @@
 #pragma once
 #include "Unit.h"
-//范围选择，内含一个字符（集）
+//范围选择，内含一个字符（集），只有这里允许进行“非”逻辑
 class Unit_2
 {
 public:
