@@ -47,7 +47,7 @@ Flow * Flow::setflow(Flow * sou)
 	next->ph_pre = sou;				//子支起点保留父节点信息
 	return next;
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////////结构缺陷
 Flow * Flow::addbranch(Flow * sou)
 {
 	Flow* tem = sou;
@@ -56,7 +56,7 @@ Flow * Flow::addbranch(Flow * sou)
 	}
 	return tem->tree_pre->add(sou);
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////////
 Flow * Flow::endbranches(Flow * sou)
 {
 	Flow* tem = sou;
