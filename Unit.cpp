@@ -8,11 +8,14 @@ bool Unit::test()
 	int t_point;
 	int i;
 	bool ends = true;
+	//贪婪型
 	if (prefer) {
 		for (i = 0;i < min_nums;i++) {
 			if (ends) {
 				point = test_unit();
-				ends = (point == 0) ? false : true;
+				if (point == 0) {
+					ends = false;
+				}
 			}
 		}
 		if (ends) {
@@ -34,6 +37,7 @@ bool Unit::test()
 			}
 		}
 	}
+	//懒惰型，最少匹配
 	else {
 		for (i = 0;i < min_nums;i++) {
 			if (ends) {
