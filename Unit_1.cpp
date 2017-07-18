@@ -11,8 +11,9 @@ Unit_1::~Unit_1()
 {
 }
 
-bool Unit_1::test()
+bool Unit_1::test(int point)
 {
+	int 
 	return false;
 }
 

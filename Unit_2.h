@@ -5,9 +5,11 @@ class Unit_2
 {
 public:
 	const Unit* father;
+	char* sou;
+	char* target;
 	Unit_2(const Unit* father);
 	~Unit_2();
 	void init();
-	bool test();
+	bool test(int point);
 };
 

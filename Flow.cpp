@@ -73,7 +73,7 @@ bool Flow::test(const char * target, int point = 0)	//从指定位开始
 		return true;
 	}
 	inner->point = point;
-	inner->target = (char*)target;
+	inner->settarget((char*)target);
 	if (!inner->test()) {
 		return false;
 	}

@@ -10,44 +10,53 @@ bool Unit::test()
 	bool ends = true;
 	if (prefer) {
 		for (i = 0;i < min_nums;i++) {
-			if (ends)
-				ends = test_unit();
+			if (ends) {
+				point = test_unit();
+				ends = (point == 0) ? false : true;
+			}
 		}
 		if (ends) {
 			if (max_nums == 0) {
-				t_point = point;
-				while (test_unit())
-					t_point = point;
-				point = t_point;
+				t_point = 1;
+				while (t_point != 0) {
+					t_point = test_unit();
+					if (t_point != 0)
+						point = t_point;
+				}
 			}
 			else {
-				for(;i<max_nums;i++)
-					t_point = point;
-				point = t_point;
+				for (;i < max_nums;i++) {
+					t_point = test_unit();
+					if (t_point == 0)
+						break;
+					point = t_point;
+				}
 			}
 		}
 	}
 	else {
 		for (i = 0;i < min_nums;i++) {
-			if (ends)
-				ends = test_unit();
+			if (ends) {
+				point = test_unit();
+				ends = (point == 0) ? false : true;
+			}
 		}
 	}
 	return ends;
 }
 
-bool Unit::test_unit()
+int Unit::test_unit()
 {
 	switch (kind) {
 	case 0:
 	case 1:
-		return u1->test();
+		return u1->test(point);
 		break;
 	case 2:
-		return logic^u2->test();	//非逻辑处理完成，仅针对[]有效
+		return logic^u2->test(point);	//非逻辑处理完成，仅针对[]有效
 		break;
 	case 3:
-		return u3->test();
+		return u3->test(point);
 		break;
 	default:
 		printf("在分类时出现错误，\n错误位点unit.cpp");
@@ -56,17 +65,33 @@ bool Unit::test_unit()
 	return false;
 }
 
-Unit::Unit(int kind, const char * sou)
+void Unit::settarget(char * tar)
+{
+	switch (kind) {
+	case 0:
+	case 1:
+		u1->target = tar;
+		break;
+	case 2:
+		u2->target = tar;
+		break;
+	case 3:
+		u3->target = tar;
+		break;
+	default:
+		printf("在分类时出现错误，\n错误位点unit.cpp");
+	}
+}
+
+Unit::Unit(int kind)
 {
 	this->kind = kind;
-	this->sou = (char*) sou;
 	this->gate_nums = 1;
 }
 
-Unit::Unit(int kind, const char * sou, int gate, int prefer, int min, int max = 0)
+Unit::Unit(int kind, int gate, int prefer, int min, int max = 0)
 {
 	this->kind = kind;
-	this->sou = (char*)sou;
 	this->gate_nums = gate;
 	this->prefer = prefer;
 	this->min_nums = min;
