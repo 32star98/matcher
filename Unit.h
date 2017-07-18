@@ -3,6 +3,7 @@
 #include "Unit_2.h"
 #include "Unit_3.h"
 //最小控制模块
+//只需删除flow的最后一个键
 class Unit
 {
 public:
@@ -17,12 +18,13 @@ public:
 	int prefer;			//操作倾向，0表示尽可能少
 	int state;			//操作状态（返回值）1,0,e
 	bool test();
+	bool test_unit();
 	Unit_1* u1 = nullptr;
 	Unit_2* u2 = nullptr;
 	Unit_3* u3 = nullptr;
 public:
-	Unit(int kind, int point, const char* sou);
-	Unit(int kind, int point, const char* sou, int gate,
+	Unit(int kind, const char* sou);
+	Unit(int kind, const char* sou, int gate,
 		int prefer, int min, int max);
 	~Unit();
 private:

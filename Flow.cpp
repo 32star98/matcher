@@ -8,9 +8,12 @@ Flow::Flow()
 
 Flow * Flow::add(Flow * sou)
 {
+	if (branches == 0) {
+		return setflow(sou);
+	}
 	branches++;
 	Flow* t = new Flow();
-	sou->next = t;
+	sou->ph_nex = t;
 	t->ph_pre = sou;
 	t->tree_pre = this;
 	return t;
@@ -21,49 +24,47 @@ Flow * Flow::end(Flow * sou)
 	Flow* t = new Flow();
 	Flow* p;
 	int i;						//终结子树
-	sou->next = t;
+	sou->ph_nex = t;
 	t->ph_pre = sou;
 	t->tree_pre = tree_pre;
-	p = this->next;					//p作临时变量
-	for (i = 2;i < branches;i++) {				//除去首尾
-		while (p->next->tree_pre != this) p = p->next;
-		p->next = t;
+	p = this;
+	while (p != sou) {
+		p = p->ph_nex;
+		if (p->next == 0) {
+			p->next = t;
+		}
 	}
-	return nullptr;
+	return t;
 }
 
 
 Flow::~Flow()
 {
-	if(ph_pre)
-	delete(ph_pre);
+	if (inner)
+		delete(inner);
+	if (ph_pre)
+		delete(ph_pre);
 }
 
 Flow * Flow::setflow(Flow * sou)
 {
+	branches++;
 	Flow* next;
 	next = new Flow();
 	sou->next = next;
 	next->ph_pre = sou;				//子支起点保留父节点信息
+	sou->ph_nex = next;
 	return next;
 }
-////////////////////////////////////////////////////////////////////////////////////////////////结构缺陷
-Flow * Flow::addbranch(Flow * sou)
+
+Flow * Flow::addbranch(Flow* sou)
 {
-	Flow* tem = sou;
-	while (tem->ph_pre->tree_pre == 0) {
-		tem = tem->ph_pre;
-	}
-	return tem->tree_pre->add(sou);
+	return add(sou);
 }
-////////////////////////////////////////////////////////////////////////////////////////////////
-Flow * Flow::endbranches(Flow * sou)
+
+Flow * Flow::endbranches(Flow* sou)
 {
-	Flow* tem = sou;
-	while (tem->ph_pre->tree_pre == 0) {
-		tem = tem->ph_pre;
-	}
-	return tem->tree_pre->end(sou);
+	return end(sou);
 }
 
 bool Flow::test(const char * target, int point = 0)	//从指定位开始
@@ -85,7 +86,7 @@ bool Flow::test(const char * target, int point = 0)	//从指定位开始
 			int i;
 			bool ans = false;
 			for (i = 0;i < branches;i++) {
-				while (p->tree_pre != this) p = p->next;
+				while (p!=0 && p->tree_pre != this) p = p->next;	//注意防止崩溃
 				ans = ans || p->test(target, inner->point);
 			}
 			return ans;

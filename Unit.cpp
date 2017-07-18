@@ -5,13 +5,46 @@
 
 bool Unit::test()
 {
+	int t_point;
+	int i;
+	bool ends = true;
+	if (prefer) {
+		for (i = 0;i < min_nums;i++) {
+			if (ends)
+				ends = test_unit();
+		}
+		if (ends) {
+			if (max_nums == 0) {
+				t_point = point;
+				while (test_unit())
+					t_point = point;
+				point = t_point;
+			}
+			else {
+				for(;i<max_nums;i++)
+					t_point = point;
+				point = t_point;
+			}
+		}
+	}
+	else {
+		for (i = 0;i < min_nums;i++) {
+			if (ends)
+				ends = test_unit();
+		}
+	}
+	return ends;
+}
+
+bool Unit::test_unit()
+{
 	switch (kind) {
 	case 0:
 	case 1:
 		return u1->test();
 		break;
 	case 2:
-		return u2->test();
+		return logic^u2->test();	//非逻辑处理完成，仅针对[]有效
 		break;
 	case 3:
 		return u3->test();
@@ -23,18 +56,16 @@ bool Unit::test()
 	return false;
 }
 
-Unit::Unit(int kind, int point, const char * sou)
+Unit::Unit(int kind, const char * sou)
 {
 	this->kind = kind;
-	this->point = point;
 	this->sou = (char*) sou;
 	this->gate_nums = 1;
 }
 
-Unit::Unit(int kind, int point, const char * sou, int gate, int prefer, int min, int max = 0)
+Unit::Unit(int kind, const char * sou, int gate, int prefer, int min, int max = 0)
 {
 	this->kind = kind;
-	this->point = point;
 	this->sou = (char*)sou;
 	this->gate_nums = gate;
 	this->prefer = prefer;
